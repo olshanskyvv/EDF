@@ -27,6 +27,8 @@ public class Document {
     private LocalDate viewedAt;
     @Enumerated(EnumType.STRING)
     private DocumentType type;
+    private String filename;
+    private String path;
     @ManyToOne
     @JoinColumn(name = "sender_id")
     private User sender;

@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.miit.edf.dto.request.DocumentReqDTO;
 
 import java.time.LocalDate;
 

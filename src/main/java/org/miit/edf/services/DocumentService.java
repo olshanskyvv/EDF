@@ -19,6 +19,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class DocumentService {
     private final DocumentRepo documentRepo;
+    private final NotificationService notificationService;
     private final String path = "./src/main/resources/files/";
 
     public String saveFile(MultipartFile file) throws IOException {
@@ -42,6 +43,7 @@ public class DocumentService {
         User sender = (User) authentication.getPrincipal();
         documentForBD.setSender(sender);
         documentForBD.setRecipient(document.getRecipient());
-        documentRepo.save(documentForBD);
+        notificationService.addNotification(documentForBD);
+        return new DocumentResDTO(documentRepo.save(documentForBD));
     }
 }

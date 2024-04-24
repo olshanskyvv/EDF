@@ -7,5 +7,7 @@ services:
     build:
       context: .
     env_file: .env
+    volumes:
+      - files:/home/edf/files
     ports:
       - "8080:8080"

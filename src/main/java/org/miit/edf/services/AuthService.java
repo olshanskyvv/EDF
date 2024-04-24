@@ -7,8 +7,10 @@ import org.miit.edf.dto.PasswordDTO;
 import org.miit.edf.dto.SignInRequest;
 import org.miit.edf.dto.SignUpRequest;
 import org.miit.edf.dto.response.UserDTO;
+import org.miit.edf.models.Organisation;
 import org.miit.edf.models.Role;
 import org.miit.edf.models.User;
+import org.miit.edf.repos.OrganisationRepo;
 import org.miit.edf.utils.auth.JwtUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,18 +23,21 @@ import org.springframework.stereotype.Service;
 @Log4j2
 public class AuthService {
     private final UserService userService;
+    private final OrganisationRepo organisationRepo;
     private final JwtUtils jwtUtils;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
     public User createUser(SignUpRequest request, Role role) {
         log.debug("Start AuthService.createUser");
+        Organisation organisation = organisationRepo.findById(request.getOrganizationId()).orElse(null);
         return User.builder()
                 .login(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .patronymic(request.getPatronymic() == null ? "No patronymic" : request.getPatronymic())
+                .organisation(organisation)
                 .role(role)
                 .build();
     }

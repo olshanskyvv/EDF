@@ -23,4 +23,5 @@ public class SignUpRequest {
     private String lastName;
     @Schema(description = "Отчество пользователя", example = "Valerich")
     private String patronymic;
+    private Long organizationId;
 }

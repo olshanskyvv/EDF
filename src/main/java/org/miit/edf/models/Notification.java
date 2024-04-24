@@ -17,10 +17,10 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "notification_id")
     private Long id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "document_id")
     private Document document;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "recipient_id")
     private User recipient;
     private String text;

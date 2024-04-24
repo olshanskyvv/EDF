@@ -51,7 +51,15 @@ public class DocumentService {
         notificationService.addNotification(documentForBD);
         return new DocumentResDTO(documentRepo.saveAndFlush(documentForBD));
     }
-    public List<DocumentResDTO> getAllDocuments() {
+    public List<DocumentResDTO> getAllDocumentsRecipient() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<Document> documents = documentRepo.findByRecipient_Login(authentication.getName());
+        if (documents.isEmpty()) {
+            return List.of();
+        }
+        return documents.stream().map(DocumentResDTO::new).toList();
+    }
+    public List<DocumentResDTO> getAllDocumentsSender() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<Document> documents = documentRepo.findByRecipient_Login(authentication.getName());
         if (documents.isEmpty()) {

@@ -21,9 +21,13 @@ public class DocumentController {
     public ResponseEntity<DocumentResDTO> sendDocument(DocumentReqDTO document) throws IOException {
         return ResponseEntity.ok(documentService.uploadDocument(document));
     }
-    @GetMapping("/get/all")
-    public ResponseEntity<List<DocumentResDTO>> getDocument() {
-        return ResponseEntity.ok(documentService.getAllDocuments());
+    @GetMapping("/get/all/recipient")
+    public ResponseEntity<List<DocumentResDTO>> getDocumentRecipient() {
+        return ResponseEntity.ok(documentService.getAllDocumentsRecipient());
+    }
+    @GetMapping("/get/all/sender")
+    public ResponseEntity<List<DocumentResDTO>> getDocumentSender() {
+        return ResponseEntity.ok(documentService.getAllDocumentsSender());
     }
     @GetMapping("/get/{fileName}")
     public ResponseEntity<FileSystemResource> getDocument(@PathVariable String fileName) {

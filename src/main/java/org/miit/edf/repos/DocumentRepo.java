@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface DocumentRepo extends JpaRepository<Document, Long> {
     List<Document> findByRecipient_Login(String user);
+    List<Document> findBySender_Login(String user);
 }

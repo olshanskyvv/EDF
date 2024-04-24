@@ -25,7 +25,6 @@ public class DocumentService {
     private final UserRepo userRepo;
     @Value("${doc.path}")
     private String path;
-//            = "./src/main/resources/files/";
 
     public String saveFile(MultipartFile file) throws IOException {
         String uuidFile = UUID.randomUUID().toString();
@@ -50,7 +49,7 @@ public class DocumentService {
         documentForBD.setSender(sender);
         documentForBD.setRecipient(userRepo.findByLogin(document.getRecipient()));
         notificationService.addNotification(documentForBD);
-        return new DocumentResDTO(documentRepo.save(documentForBD));
+        return new DocumentResDTO(documentRepo.saveAndFlush(documentForBD));
     }
 
     public String loadFile(String fileNme) {

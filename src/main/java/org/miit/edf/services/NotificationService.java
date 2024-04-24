@@ -21,11 +21,11 @@ public class NotificationService {
     private final DocumentRepo documentRepo;
     public void addNotification(Document document) {
         Notification notification = new Notification();
-        notification.setDocument(document);
-        notification.setType("test type");
-        notification.setText("test text");
+        notification.setType("ВНИМАНИЕ");
+        notification.setText("Вам пришел документ на ознакомление");
         notification.setRecipient(document.getRecipient());
-        notificationRepo.save(notification);
+        notificationRepo.saveAndFlush(notification);
+        notification.setDocument(document);
     }
     public List<NotificationResDTO> showAllNotification(User user) {
         List<Notification> notifications = notificationRepo.findByRecipient(user);

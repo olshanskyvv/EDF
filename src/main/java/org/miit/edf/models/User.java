@@ -25,7 +25,7 @@ public class User implements UserDetails {
     private String patronymic;
     private String login;
     private String password;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
     @Enumerated(EnumType.STRING)

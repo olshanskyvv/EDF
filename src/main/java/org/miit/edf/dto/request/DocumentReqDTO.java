@@ -9,5 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class DocumentReqDTO {
     MultipartFile file;
     DocumentType type;
+    String description;
     User recipient;
 }

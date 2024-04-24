@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -22,13 +22,14 @@ public class Document {
     private Long id;
     @Column(name = "created_at")
     @CreationTimestamp
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     @Column(name = "viewed_at")
-    private LocalDate viewedAt;
+    private LocalDateTime viewedAt;
     @Enumerated(EnumType.STRING)
     private DocumentType type;
     private String filename;
     private String path;
+    private String description;
     @ManyToOne
     @JoinColumn(name = "sender_id")
     private User sender;

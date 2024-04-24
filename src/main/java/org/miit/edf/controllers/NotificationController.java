@@ -7,9 +7,7 @@ import org.miit.edf.services.NotificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,10 +16,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NotificationController {
     private final NotificationService notificationService;
-    @GetMapping("/view")
-    public ResponseEntity<List<NotificationResDTO>> viewAllNotification() {
+    @GetMapping("/show")
+    public ResponseEntity<List<NotificationResDTO>> showAllNotification() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User recipient = (User) authentication.getPrincipal();
-        return ResponseEntity.ok(notificationService.viewAllNotification(recipient));
+        return ResponseEntity.ok(notificationService.showAllNotification(recipient));
+    }
+    @PostMapping("/view/{id}")
+    public ResponseEntity<?> viewNotification(@PathVariable Long id) {
+        notificationService.viewNotification(id);
+        return ResponseEntity.ok().build();
     }
 }

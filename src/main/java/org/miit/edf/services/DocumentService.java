@@ -39,11 +39,16 @@ public class DocumentService {
         String path = saveFile(document.getFile());
         documentForBD.setFilename(document.getFile().getOriginalFilename());
         documentForBD.setPath(path);
+        documentForBD.setDescription(document.getDescription());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User sender = (User) authentication.getPrincipal();
         documentForBD.setSender(sender);
         documentForBD.setRecipient(document.getRecipient());
         notificationService.addNotification(documentForBD);
         return new DocumentResDTO(documentRepo.save(documentForBD));
+    }
+
+    public String loadFile(String fileNme) {
+        return path+fileNme;
     }
 }

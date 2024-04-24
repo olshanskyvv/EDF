@@ -12,6 +12,7 @@ public class DocumentResDTO {
     private String filename;
     private String path;
     private DocumentType type;
+    private String description;
     private LocalDateTime createdAt;
     private LocalDateTime viewedAt;
     private UserDTO sender;
@@ -21,6 +22,7 @@ public class DocumentResDTO {
         this.filename = document.getFilename();
         this.path = document.getPath();
         this.type = document.getType();
+        this.description = document.getDescription();
         this.createdAt = document.getCreatedAt();
         this.viewedAt = document.getViewedAt();
         this.sender = new UserDTO(document.getSender());

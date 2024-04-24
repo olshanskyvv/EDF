@@ -29,6 +29,8 @@ public class Document {
     private DocumentType type;
     private String filename;
     private String path;
+    @Column(name = "description",
+            columnDefinition = "TEXT")
     private String description;
     @ManyToOne
     @JoinColumn(name = "sender_id")

@@ -4,7 +4,7 @@ import lombok.Data;
 import org.miit.edf.models.Document;
 import org.miit.edf.models.DocumentType;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class DocumentResDTO {
@@ -12,8 +12,8 @@ public class DocumentResDTO {
     private String filename;
     private String path;
     private DocumentType type;
-    private LocalDate createdAt;
-    private LocalDate viewedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime viewedAt;
     private UserDTO sender;
     private UserDTO recipient;
     public DocumentResDTO(Document document) {

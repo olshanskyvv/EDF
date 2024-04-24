@@ -6,6 +6,8 @@ import org.miit.edf.dto.response.DocumentResDTO;
 import org.miit.edf.models.Document;
 import org.miit.edf.models.User;
 import org.miit.edf.repos.DocumentRepo;
+import org.miit.edf.repos.UserRepo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,10 @@ import java.util.UUID;
 public class DocumentService {
     private final DocumentRepo documentRepo;
     private final NotificationService notificationService;
-    private final String path = "./src/main/resources/files/";
+    private final UserRepo userRepo;
+    @Value("${doc.path}")
+    private String path;
+//            = "./src/main/resources/files/";
 
     public String saveFile(MultipartFile file) throws IOException {
         String uuidFile = UUID.randomUUID().toString();
@@ -43,7 +48,7 @@ public class DocumentService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User sender = (User) authentication.getPrincipal();
         documentForBD.setSender(sender);
-        documentForBD.setRecipient(document.getRecipient());
+        documentForBD.setRecipient(userRepo.findByLogin(document.getRecipient()));
         notificationService.addNotification(documentForBD);
         return new DocumentResDTO(documentRepo.save(documentForBD));
     }

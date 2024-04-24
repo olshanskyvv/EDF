@@ -11,8 +11,10 @@ import org.miit.edf.dto.JwtAuthenticationResponse;
 import org.miit.edf.dto.PasswordDTO;
 import org.miit.edf.dto.SignInRequest;
 import org.miit.edf.dto.SignUpRequest;
+import org.miit.edf.dto.response.UserDTO;
 import org.miit.edf.services.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -52,5 +54,21 @@ public class AuthController {
         log.info("Обновление пароля");
         authService.updatePassword(passwordDTO);
         return ResponseEntity.ok("Password was updated");
+    }
+
+    @ResponseBody
+    @Operation(
+            summary = "Обновление пароля",
+            parameters = @Parameter(in = ParameterIn.HEADER,
+                    name = "Authorization",
+                    description = "JWT токен",
+                    required = true,
+                    example = "Bearer <token>")
+    )
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/profile")
+    public ResponseEntity<UserDTO> profile() {
+        log.info("Профиль");
+        return ResponseEntity.ok(authService.profile());
     }
 }

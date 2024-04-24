@@ -6,6 +6,7 @@ import org.miit.edf.dto.JwtAuthenticationResponse;
 import org.miit.edf.dto.PasswordDTO;
 import org.miit.edf.dto.SignInRequest;
 import org.miit.edf.dto.SignUpRequest;
+import org.miit.edf.dto.response.UserDTO;
 import org.miit.edf.models.Role;
 import org.miit.edf.models.User;
 import org.miit.edf.utils.auth.JwtUtils;
@@ -34,6 +35,12 @@ public class AuthService {
                 .patronymic(request.getPatronymic() == null ? "No patronymic" : request.getPatronymic())
                 .role(role)
                 .build();
+    }
+
+    public UserDTO profile() {
+        log.debug("Start AuthService.profile");
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return new UserDTO(userService.loadUserByUsername(username));
     }
 
     public void updatePassword(PasswordDTO passwordDTO) {

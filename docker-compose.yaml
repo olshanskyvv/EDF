@@ -6,6 +6,6 @@ services:
     image: 'edf'
     build:
       context: .
-    env_file: environment.env
+    env_file: .env
     ports:
       - "8080:8080"

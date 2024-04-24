@@ -6,6 +6,8 @@ target/
 
 **/src/main/resourses/
 
+.env
+
 ### STS ###
 .apt_generated
 .classpath

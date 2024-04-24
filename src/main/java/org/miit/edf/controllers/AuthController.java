@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/auth/users")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 @Tag(name = "Аутентификация пользователя")
 @Log4j2

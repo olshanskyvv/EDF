@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  application:
+    container_name: edf
+    image: 'edf'
+    build:
+      context: .
+    env_file: environment.env
+    ports:
+      - "8080:8080"

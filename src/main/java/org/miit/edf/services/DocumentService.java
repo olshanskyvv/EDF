@@ -33,8 +33,8 @@ public class DocumentService {
         if (!directory.exists()) {
             directory.mkdirs();
         }
-        file.transferTo(new File(path + resultFilename));
-        return path + resultFilename;
+        file.transferTo(new File(path + "/" + resultFilename));
+        return resultFilename;
     }
 
     public DocumentResDTO uploadDocument(DocumentReqDTO document) throws IOException {
@@ -53,6 +53,6 @@ public class DocumentService {
     }
 
     public String loadFile(String fileNme) {
-        return path+fileNme;
+        return path+"/"+fileNme;
     }
 }

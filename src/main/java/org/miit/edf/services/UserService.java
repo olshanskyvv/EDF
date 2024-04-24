@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class UserService implements UserDetailsService {
-    UserRepo userRepo;
+    private final UserRepo userRepo;
 
     public void save(User user) {
         userRepo.save(user);

@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -25,7 +27,6 @@ public class DocumentService {
     private final UserRepo userRepo;
     @Value("${doc.path}")
     private String path;
-
     public String saveFile(MultipartFile file) throws IOException {
         String uuidFile = UUID.randomUUID().toString();
         String resultFilename = uuidFile + "." + file.getOriginalFilename();
@@ -36,7 +37,6 @@ public class DocumentService {
         file.transferTo(new File(path + "/" + resultFilename));
         return resultFilename;
     }
-
     public DocumentResDTO uploadDocument(DocumentReqDTO document) throws IOException {
         Document documentForBD = new Document();
         documentForBD.setType(document.getType());
@@ -51,7 +51,14 @@ public class DocumentService {
         notificationService.addNotification(documentForBD);
         return new DocumentResDTO(documentRepo.saveAndFlush(documentForBD));
     }
-
+    public List<DocumentResDTO> getAllDocuments() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<Document> documents = documentRepo.findByRecipient_Login(authentication.getName());
+        if (documents.isEmpty()) {
+            return List.of();
+        }
+        return documents.stream().map(DocumentResDTO::new).toList();
+    }
     public String loadFile(String fileNme) {
         return path+"/"+fileNme;
     }

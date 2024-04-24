@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/document")
@@ -19,6 +20,10 @@ public class DocumentController {
     @PostMapping("/send")
     public ResponseEntity<DocumentResDTO> sendDocument(DocumentReqDTO document) throws IOException {
         return ResponseEntity.ok(documentService.uploadDocument(document));
+    }
+    @GetMapping("/get/all")
+    public ResponseEntity<List<DocumentResDTO>> getDocument() {
+        return ResponseEntity.ok(documentService.getAllDocuments());
     }
     @GetMapping("/get/{fileName}")
     public ResponseEntity<FileSystemResource> getDocument(@PathVariable String fileName) {

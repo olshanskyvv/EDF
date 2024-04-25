@@ -61,7 +61,7 @@ public class DocumentService {
     }
     public List<DocumentResDTO> getAllDocumentsSender() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List<Document> documents = documentRepo.findByRecipient_Login(authentication.getName());
+        List<Document> documents = documentRepo.findBySender_Login(authentication.getName());
         if (documents.isEmpty()) {
             return List.of();
         }
